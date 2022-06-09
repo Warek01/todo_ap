@@ -1,10 +1,30 @@
-import React from "react";
+import React, {useRef} from "react";
+import {TaskStructure} from "../TaskStructure";
+import {nanoid} from "nanoid";
 
 interface InputProps {
+	addTask(task: TaskStructure): void;
 }
 
 export default function AppInput(props: InputProps) {
+	const input = useRef<HTMLInputElement>(null);
 
+	const onClick = () => {
+		props.addTask({
+			id: `task-${nanoid()}`,
+			text: input.current!.value,
+			done: false,
+			date: Date.now(),
+			important: false
+		});
+
+		input.current!.value = "";
+	}
+
+	const onEnter = (event: React.KeyboardEvent) => {
+		if (event.key !== "Enter") return;
+		onClick();
+	}
 
 	return (
 		<div className={"main-input-wrapper"}>
@@ -13,12 +33,15 @@ export default function AppInput(props: InputProps) {
 				placeholder={"Input here"}
 				id={"main-input"}
 				name={"main-input"}
+				ref={input}
+				onKeyUp={onEnter}
 			/>
 			<input
 				type={"button"}
 				value={"Add"}
 				id={"add-button"}
 				name={"add-button"}
+				onClick={onClick}
 			/>
 		</div>
 	);
