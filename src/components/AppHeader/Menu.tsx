@@ -9,18 +9,10 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({hidden}) => {
     const menuRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        if (!hidden) {
-            menuRef.current!.style.maxHeight = "800px";
-        } else {
-            menuRef.current!.style.maxHeight = "0";
-        }
-    }, [hidden]);
-
     return (
         <div
             id={"menu"}
-            className={classNames("menu", {"hidden": hidden})}
+            className={classNames("menu", {"collapsed": hidden})}
             ref={menuRef}
         >
             <button>
