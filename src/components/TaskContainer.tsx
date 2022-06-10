@@ -5,11 +5,11 @@ import Task from "./Task";
 interface TaskContainerProps {
 	allTasks: TaskStructure[];
 	updateTask(task: TaskStructure): void;
-	deleteTask(id: string): void;
+	deleteTask(id: string): () => void;
 }
 
 export default function TaskContainer(props: TaskContainerProps) {
-	const tasks = props.allTasks.map(task => {
+	const tasks = props.allTasks.map((task, index) => {
 		return (
 			<Task
 				text={task.text}
@@ -20,17 +20,12 @@ export default function TaskContainer(props: TaskContainerProps) {
 				important={task.important}
 				updateTask={props.updateTask}
 				deleteTask={props.deleteTask}
+				hasBorder={index < props.allTasks.length - 1}
 			/>
 		);
 	});
 
-	const emptyList = (
-		<div>
-			<h1 className={"tasks-empty"}>
-				No tasks yet
-			</h1>
-		</div>
-	);
+	const emptyList = <h1 className={"tasks-empty"}>nothing here</h1>;
 
 	const tasksContainer = (
 		<div className={"task-container"}>

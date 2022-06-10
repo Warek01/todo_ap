@@ -1,47 +1,126 @@
-$main-bg: #dff9fb;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500&display=swap');
+// Raleway, sans-serif
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500&display=swap');
+// Barlow, sans-serif
+
+$main-bg: #0d1117;
+$header-bg: #161b22;
+$button-bg: #21262d;
+$button-hover-bg: lighten($button-bg, 10);
 $task-done-bg: #ff7675;
 $task-important-bg: #55efc4;
+$focus-border: #e84118;
+$text-color: #e2f6fc;
+$active-button-bg: #226eb8;
+$active-button-hover-bg: lighten($active-button-bg, 20);
+
+:focus {
+  outline: 2px solid $button-bg;
+}
+
+:root {
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $text-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.hidden {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+}
 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
-  color: #333;
   background-color: $main-bg;
 }
 
-.app-header {
-  display: flex;
-  width: 100%;
-  height: 60px;
-  border-bottom: 1px solid #333;
+button, input[type=button] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 16px;
+  margin: 5px;
+  background-color: $button-bg;
+  user-select: none;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid $button-hover-bg;
+  border-radius: 6px;
+  color: #bed1d9;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background-color: $button-hover-bg;
+  }
+
+  img {
+    position: relative;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.tasks-empty {
+  display: block;
+  position: relative;
+  margin-top: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 3em;
+  cursor: default;
 }
 
 .task-container {
   display: block;
   margin: 40px auto;
   width: 80%;
-  background-color: #fff;
+  color: #fff;
+
+  .checkbox {
+    border: none;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    min-width: 0;
+    min-height: 0;
+    transition: background-color 0ms;
+    background-color: $button-bg;
+
+    img {
+      width: 90%;
+      height: 90%;
+    }
+  }
 
   .task {
     display: block;
     width: 100%;
     min-height: 90px;
     margin: 20px auto;
-    
+
     &.important {
-      background-color: $task-important-bg;
+      //background-color: $task-important-bg;
     }
 
     &.done {
       .text {
         text-decoration: line-through;
       }
-
-      background-color: rgba($task-done-bg, .25);
     }
 
     .text-wrap {
@@ -53,6 +132,28 @@ body {
         font-size: 18px;
       }
     }
+
+    button.active {
+      background-color: $active-button-bg;
+
+      &:hover {
+        background-color: $active-button-hover-bg;
+
+      }
+    }
+
+    .date {
+      font-family: "Barlow", sans-serif;
+      font-weight: 200;
+    }
+  }
+
+  .border {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin: 10px auto;
+    background-color: $header-bg;
   }
 
   .is-done {
@@ -62,6 +163,50 @@ body {
 
     &:hover {
       cursor: pointer;
+    }
+  }
+}
+
+.main-input-wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+
+  #add-button {
+    height: 30px;
+    width: 45px;
+    margin-left: 20px;
+
+    img {
+      display: block;
+      position: relative;
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  #main-input {
+    display: block;
+    position: relative;
+    height: 30px;
+    min-width: 30%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $button-bg;
+    color: $text-color;
+
+    &:focus {
+      border-radius: 6px;
+    }
+
+    &::placeholder {
+      color: $text-color;
+      text-align: center;
+      text-transform: uppercase;
     }
   }
 }

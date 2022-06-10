@@ -1,27 +1,24 @@
 import React, {useEffect, useState} from "react";
-import AppHeader from "./AppHeader";
+import AppHeader from "./AppHeader/AppHeader";
 import AppInput from "./AppInput";
 import TaskContainer from "./TaskContainer";
 import {TaskStructure} from "../TaskStructure";
 import TaskSort from "./TaskSort";
 
-interface AppProps {
-}
-
-export default function App(props: AppProps) {
+const App: React.FC = () => {
 	const [allTasks, setAllTasks] =
-		useState(JSON.parse(localStorage.getItem("tasks") || "[]") as TaskStructure[]);
+		useState<TaskStructure[]>(JSON.parse(localStorage.getItem("tasks") || "[]"));
 
 	const arrangeTasks = (tasks: TaskStructure[]): TaskStructure[] => {
-		const newArr = new Array<TaskStructure>(tasks.length);
-		let i = 0;
-		let j = tasks.length - 1;
+		if (!tasks.length) return [];
+		const newArr = new Array<TaskStructure>();
 
 		tasks.forEach(t => {
-			if (t.important)
-				newArr[i++] = t;
-			else
-				newArr[j--] = t;
+			if (t.important) newArr.push(t);
+		});
+
+		tasks.forEach(t => {
+			if (!t.important) newArr.push(t);
 		});
 
 		return newArr;
@@ -36,7 +33,7 @@ export default function App(props: AppProps) {
 		);
 	};
 
-	const deleteTask = (id: string) => {
+	const deleteTask = (id: string) => () => {
 		setAllTasks(tasks => tasks.filter(t => t.id !== id));
 	};
 
@@ -53,23 +50,24 @@ export default function App(props: AppProps) {
 		}
 	});
 
+	const addTask = (task: TaskStructure) => {
+		if (task.text.length === 0) return;
+		localStorage.setItem("tasks", JSON.stringify([...allTasks, task]));
+		setAllTasks([...allTasks, task]);
+	};
+
 	return (
 		<div className={"app"}>
-
 			<AppHeader/>
-			<TaskSort />
-			<AppInput
-				addTask={(task: TaskStructure) => {
-					localStorage.setItem("tasks", JSON.stringify([...allTasks, task]));
-					setAllTasks([...allTasks, task]);
-				}}
-			/>
+			<TaskSort/>
+			<AppInput addTask={addTask}/>
 			<TaskContainer
 				deleteTask={deleteTask}
 				allTasks={allTasks}
 				updateTask={updateTask}
 			/>
-
 		</div>
 	);
-}
+};
+
+export default App;

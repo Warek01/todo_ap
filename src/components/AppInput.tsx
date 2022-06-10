@@ -1,6 +1,7 @@
 import React, {useRef} from "react";
 import {TaskStructure} from "../TaskStructure";
 import {nanoid} from "nanoid";
+import plus_src from "../img/plus.svg";
 
 interface InputProps {
 	addTask(task: TaskStructure): void;
@@ -19,30 +20,32 @@ export default function AppInput(props: InputProps) {
 		});
 
 		input.current!.value = "";
-	}
+	};
 
 	const onEnter = (event: React.KeyboardEvent) => {
 		if (event.key !== "Enter") return;
 		onClick();
-	}
+	};
 
 	return (
 		<div className={"main-input-wrapper"}>
 			<input
 				type={"text"}
-				placeholder={"Input here"}
+				placeholder={"Add a task"}
 				id={"main-input"}
 				name={"main-input"}
 				ref={input}
 				onKeyUp={onEnter}
 			/>
-			<input
-				type={"button"}
-				value={"Add"}
+			<button
 				id={"add-button"}
 				name={"add-button"}
+				autoCorrect={"false"}
+				aria-autocomplete={"none"}
 				onClick={onClick}
-			/>
+			>
+				<img src={plus_src} alt={"add"}/>
+			</button>
 		</div>
 	);
 }
