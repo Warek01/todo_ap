@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
 import logo_src from "../../img/document.svg";
 import menu_src from "../../img/menu.svg";
-import "./Header.scss";
+import "./AppHeader.scss";
 import Menu from "./Menu";
 
 const AppHeader: React.FC = () => {
