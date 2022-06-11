@@ -1,101 +1,107 @@
 @use "./src/index";
 
+$timing: 250ms;
+
 #header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 60px;
-  background-color: index.$header-bg;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 60px;
+	background-color: index.$header-bg;
 
-  .l-half, .r-half {
-    display: block;
-    width: 50%;
-    height: 100%;
+	.l-half, .r-half {
+		display: block;
+		width: 50%;
+		height: 100%;
 
-    .logo-wrap {
-      display: flex;
-      align-content: flex-start;
-      align-items: center;
-      width: 100%;
-      height: 100%;
+		.logo-wrap {
+			display: flex;
+			align-content: flex-start;
+			align-items: center;
+			width: 100%;
+			height: 100%;
 
-      .logo {
-        display: block;
-        width: 30px;
-        height: 30px;
-        margin: 0 20px;
-      }
+			.logo {
+				display: block;
+				width: 30px;
+				height: 30px;
+				margin: 0 20px;
+			}
 
-      .logo-text {
-        color: #fff;
-        text-transform: uppercase;
-        font-family: "Raleway", sans-serif;
-        font-weight: 300;
-        font-size: 2em;
-        text-wrap: none;
-        cursor: default;
-      }
-    }
+			.logo-text {
+				color: #FFFFFF;
+				text-transform: uppercase;
+				font-family: "Raleway", sans-serif;
+				font-weight: 300;
+				font-size: 2em;
+				text-wrap: none;
+				cursor: default;
+			}
+		}
 
-    .button-container {
-      display: flex;
-      align-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
+		.button-container {
+			display: flex;
+			align-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
 
-      .options-button {
-        padding: 0;
-        background-color: transparent;
-        border: none;
-        width: 50px;
-        height: 50px;
-        margin-left: auto;
-        margin-right: 20px;
-        transition: background-color .2s ease;
+			.options-button {
+				padding: 0;
+				background-color: transparent;
+				border: none;
+				width: 50px;
+				height: 50px;
+				margin-left: auto;
+				margin-right: 20px;
+				transition: background-color .2s ease;
 
-        &:hover {
-          background-color: #ffffff0f;
-        }
+				&:hover {
+					background-color: #FFFFFF0F;
+				}
 
-        img {
-          width: 30px;
-          height: 30px;
-        }
-      }
-    }
-  }
+				img {
+					width: 30px;
+					height: 30px;
+				}
+			}
+		}
+	}
 }
 
 #menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 20px;
-  top: 65px;
-  width: 200px;
-  border-radius: 6px;
-  border: 1px solid index.$button-hover-bg;
-  z-index: 100;
-  padding: 10px 0;
-  overflow: hidden;
-  max-height: 800px;
-  transition: max-height 500ms ease;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 20px;
+	top: 65px;
+	width: 200px;
+	border-radius: 6px;
+	border: 1px solid index.$button-hover-bg;
+	z-index: 100;
+	overflow: hidden;
+	max-height: 800px;
+	padding: 10px 0;
+	transition: all 0ms linear 0ms,
+	padding $timing linear 0ms,
+	max-height $timing linear 0ms,
+	border $timing linear 0ms;
 
-  &.collapsed {
-    visibility: hidden;
-    pointer-events: none;
-    user-select: none;
-    max-height: 0;
-    max-width: 0;
-  }
+	&.collapsed {
+		padding: 0;
+		max-height: 0;
+		border-color: transparent;
+		pointer-events: none;
+		user-select: none;
+		z-index: -1;
+	}
 
-  button {
-    width: 90%;
-    height: 40px;
-  }
+	button {
+		width: 90%;
+		height: 40px;
+	}
 }
 
