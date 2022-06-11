@@ -1,7 +1,8 @@
 import React, {useRef} from "react";
-import {TaskStructure} from "./Task/TaskStructure";
+import {TaskStructure} from "../Task/TaskStructure";
 import {nanoid} from "nanoid";
-import plus_src from "../img/plus.svg";
+import plus_src from "../../img/plus.svg";
+import "./AppInput.scss";
 
 interface InputProps {
 	addTask(task: TaskStructure): void;

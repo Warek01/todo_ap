@@ -1,7 +1,7 @@
 import React, {useEffect, useState, createContext} from "react";
 import AppHeader from "./AppHeader/AppHeader";
-import AppInput from "./AppInput";
-import TaskContainer from "./TaskContainer";
+import AppInput from "./AppInput/AppInput";
+import TaskContainer from "./TaskContainer/TaskContainer";
 import {TaskStructure} from "./Task/TaskStructure";
 
 type Filter = "important" | "complete" | "all" | "active";
