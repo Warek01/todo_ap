@@ -1,4 +1,4 @@
-import React, {useEffect, useState, createContext} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import AppHeader from "./AppHeader/AppHeader";
 import AppInput from "./AppInput/AppInput";
 import TaskContainer from "./TaskContainer/TaskContainer";
@@ -8,8 +8,10 @@ type Filter = "important" | "complete" | "all" | "active";
 
 export const TaskContext = createContext({
 	filter: "all" as Filter,
-	clearTasks(): void {},
-	updateFilter(filter: Filter): void {}
+	clearTasks(): void {
+	},
+	updateFilter(filter: Filter): void {
+	}
 });
 
 const App: React.FC = () => {
@@ -36,17 +38,21 @@ const App: React.FC = () => {
 	const sort = (tasks: TaskStructure[]): void => {
 		setVisibleTasks(allTasks.filter(t => {
 			switch (filter) {
-				case "all": return true;
-				case "important": return t.important;
-				case "active": return !t.done;
-				case "complete": return t.done;
+				case "all":
+					return true;
+				case "important":
+					return t.important;
+				case "active":
+					return !t.done;
+				case "complete":
+					return t.done;
 			}
 		}));
 	};
 
 	const updateFilter = (filter: Filter): void => {
 		setFilter(filter);
-	}
+	};
 
 	const updateTask = (task: TaskStructure) => {
 		setAllTasks(tasks => arrangeTasks(
@@ -63,7 +69,7 @@ const App: React.FC = () => {
 
 	const clearTasks = (): void => {
 		setAllTasks([]);
-	}
+	};
 
 	// Updating tasks in db
 	useEffect(() => {
@@ -72,12 +78,14 @@ const App: React.FC = () => {
 		sort(allTasks);
 	}, [allTasks, filter]);
 
-	window.addEventListener("keydown", event => {
-		if (event.altKey && event.key === "c") {
-			event.preventDefault();
-			clearTasks();
-		}
-	});
+	useEffect(() => {
+		window.addEventListener("keydown", event => {
+			if (event.altKey && event.key === "c") {
+				event.preventDefault();
+				clearTasks();
+			}
+		});
+	}, []);
 
 	const addTask = (task: TaskStructure) => {
 		if (task.text.length === 0) return;
