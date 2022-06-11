@@ -1,13 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, createContext} from "react";
 import AppHeader from "./AppHeader/AppHeader";
 import AppInput from "./AppInput";
 import TaskContainer from "./TaskContainer";
 import {TaskStructure} from "./Task/TaskStructure";
-import TaskSort from "./TaskSort";
+
+type Filter = "important" | "complete" | "all" | "active";
+
+export const TaskContext = createContext({
+	filter: "all" as Filter,
+	clearTasks(): void {},
+	updateFilter(filter: Filter): void {}
+});
 
 const App: React.FC = () => {
 	const [allTasks, setAllTasks] =
 		useState<TaskStructure[]>(JSON.parse(localStorage.getItem("tasks") || "[]"));
+	const [visibleTasks, setVisibleTasks] = useState(allTasks);
+	const [filter, setFilter] = useState<Filter>("all");
 
 	const arrangeTasks = (tasks: TaskStructure[]): TaskStructure[] => {
 		if (!tasks.length) return [];
@@ -24,6 +33,21 @@ const App: React.FC = () => {
 		return newArr;
 	};
 
+	const sort = (tasks: TaskStructure[]): void => {
+		setVisibleTasks(allTasks.filter(t => {
+			switch (filter) {
+				case "all": return true;
+				case "important": return t.important;
+				case "active": return !t.done;
+				case "complete": return t.done;
+			}
+		}));
+	};
+
+	const updateFilter = (filter: Filter): void => {
+		setFilter(filter);
+	}
+
 	const updateTask = (task: TaskStructure) => {
 		setAllTasks(tasks => arrangeTasks(
 			tasks.map(t => {
@@ -33,20 +57,25 @@ const App: React.FC = () => {
 		);
 	};
 
-	const deleteTask = (id: string) => () => {
+	const deleteTask = (id: string) => (): void => {
 		setAllTasks(tasks => tasks.filter(t => t.id !== id));
 	};
+
+	const clearTasks = (): void => {
+		setAllTasks([]);
+	}
 
 	// Updating tasks in db
 	useEffect(() => {
 		localStorage.removeItem("tasks");
 		localStorage.setItem("tasks", JSON.stringify(allTasks));
-	}, [allTasks]);
+		sort(allTasks);
+	}, [allTasks, filter]);
 
 	window.addEventListener("keydown", event => {
 		if (event.altKey && event.key === "c") {
 			event.preventDefault();
-			setAllTasks([]);
+			clearTasks();
 		}
 	});
 
@@ -58,14 +87,15 @@ const App: React.FC = () => {
 
 	return (
 		<div className={"app"}>
-			<AppHeader/>
-			<TaskSort/>
-			<AppInput addTask={addTask}/>
-			<TaskContainer
-				deleteTask={deleteTask}
-				allTasks={allTasks}
-				updateTask={updateTask}
-			/>
+			<TaskContext.Provider value={{updateFilter, clearTasks, filter}}>
+				<AppHeader/>
+				<AppInput addTask={addTask}/>
+				<TaskContainer
+					deleteTask={deleteTask}
+					tasks={visibleTasks}
+					updateTask={updateTask}
+				/>
+			</TaskContext.Provider>
 		</div>
 	);
 };

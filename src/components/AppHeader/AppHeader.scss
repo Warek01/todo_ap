@@ -102,6 +102,12 @@ $timing: 250ms;
 	button {
 		width: 90%;
 		height: 40px;
+
+		&.active {
+			background-color: index.$active-button-bg;
+			outline: none;
+			border: none;
+		}
 	}
 }
 

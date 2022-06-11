@@ -3,13 +3,13 @@ import {TaskStructure} from "./Task/TaskStructure";
 import Task from "./Task/Task";
 
 interface TaskContainerProps {
-	allTasks: TaskStructure[];
+	tasks: TaskStructure[];
 	updateTask(task: TaskStructure): void;
 	deleteTask(id: string): () => void;
 }
 
 export default function TaskContainer(props: TaskContainerProps) {
-	const tasks = props.allTasks.map((task, index) => {
+	const taskElements = props.tasks.map((task, index) => {
 		return (
 			<Task
 				text={task.text}
@@ -20,7 +20,7 @@ export default function TaskContainer(props: TaskContainerProps) {
 				important={task.important}
 				updateTask={props.updateTask}
 				deleteTask={props.deleteTask}
-				hasBorder={index < props.allTasks.length - 1}
+				hasBorder={index < props.tasks.length - 1}
 			/>
 		);
 	});
@@ -29,13 +29,13 @@ export default function TaskContainer(props: TaskContainerProps) {
 
 	const tasksContainer = (
 		<div className={"task-container"}>
-			{tasks}
+			{taskElements}
 		</div>
 	);
 
 	return (
 		<Fragment>
-			{tasks.length !== 0 ? tasksContainer : emptyList}
+			{taskElements.length !== 0 ? tasksContainer : emptyList}
 		</Fragment>
 	);
 }
