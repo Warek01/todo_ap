@@ -1,42 +1,47 @@
 @use "./src/index";
 
 .task {
-  display: block;
-  width: 100%;
-  min-height: 90px;
-  margin: 20px auto;
+	display: block;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	margin: 20px auto;
+	max-height: 0;
+	min-height: 0;
+	transition: max-height 500ms ease 0ms,
+	min-height 500ms ease 0ms;
 
-  &.important {
-    //background-color: $task-important-bg;
-  }
+	&.important {
+		//background-color: $task-important-bg;
+	}
 
-  &.done {
-    .text {
-      text-decoration: line-through;
-    }
-  }
+	&.done {
+		.text {
+			text-decoration: line-through;
+		}
+	}
 
-  .text-wrap {
-    display: flex;
-    align-items: center;
+	.text-wrap {
+		display: flex;
+		align-items: center;
 
-    .text {
-      margin-left: 10px;
-      font-size: 18px;
-    }
-  }
+		.text {
+			margin-left: 10px;
+			font-size: 18px;
+		}
+	}
 
-  button.active {
-    background-color: index.$active-button-bg;
+	button.active {
+		background-color: index.$active-button-bg;
 
-    &:hover {
-      background-color: index.$active-button-hover-bg;
+		&:hover {
+			background-color: index.$active-button-hover-bg;
 
-    }
-  }
+		}
+	}
 
-  .date {
-    font-family: "Barlow", sans-serif;
-    font-weight: 200;
-  }
+	.date {
+		font-family: "Barlow", sans-serif;
+		font-weight: 200;
+	}
 }

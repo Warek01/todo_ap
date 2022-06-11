@@ -57,7 +57,7 @@ const App: React.FC = () => {
 		);
 	};
 
-	const deleteTask = (id: string) => (): void => {
+	const deleteTask = (id: string): void => {
 		setAllTasks(tasks => tasks.filter(t => t.id !== id));
 	};
 

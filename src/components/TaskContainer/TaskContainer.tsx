@@ -6,7 +6,7 @@ import "./TaskContainer.scss";
 interface TaskContainerProps {
 	tasks: TaskStructure[];
 	updateTask(task: TaskStructure): void;
-	deleteTask(id: string): () => void;
+	deleteTask(id: string): void;
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({deleteTask, tasks, updateTask}) => {
