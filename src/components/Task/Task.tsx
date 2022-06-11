@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {TaskStructure} from "../TaskStructure";
+import {TaskStructure} from "./TaskStructure";
 import classNames from "classnames";
-import done_src from "../img/done.svg";
-import star_src from "../img/star.svg";
-import bin_src from "../img/bin.svg";
-import pen_src from "../img/pen.svg";
+import "./Task.scss";
+import done_src from "../../img/done.svg";
+import star_src from "../../img/star.svg";
+import bin_src from "../../img/bin.svg";
+import pen_src from "../../img/pen.svg";
 
 interface TaskProps extends TaskStructure {
 	updateTask(task: TaskStructure): void;
@@ -56,7 +57,7 @@ const Task: React.FC<TaskProps> = (props) => {
 
 	const onSetImportant = () => {
 		setImportant(prev => !prev);
-	}
+	};
 
 	useEffect(() => {
 		props.updateTask({
@@ -78,7 +79,7 @@ const Task: React.FC<TaskProps> = (props) => {
 		const day = date.getDay();
 
 		const ymd =
-			year === new Date().getFullYear() && month === new Date().getMonth() && day === new Date().getDay()?
+			year === new Date().getFullYear() && month === new Date().getMonth() && day === new Date().getDay() ?
 				"Today" : `${year}/${month}/${day}`;
 
 		dateString = `${hours}:${minutes}:${seconds} ${ymd}`;
@@ -133,7 +134,7 @@ const Task: React.FC<TaskProps> = (props) => {
 					<img src={star_src} alt={"edit"}/>
 				</button>
 			</span>
-			<div className={"border"} hidden={!props.hasBorder} />
+			<div className={"border"} hidden={!props.hasBorder}/>
 		</div>
 	);
 };

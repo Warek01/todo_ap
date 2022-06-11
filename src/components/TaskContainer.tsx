@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
-import {TaskStructure} from "../TaskStructure";
-import Task from "./Task";
+import {TaskStructure} from "./Task/TaskStructure";
+import Task from "./Task/Task";
 
 interface TaskContainerProps {
 	allTasks: TaskStructure[];

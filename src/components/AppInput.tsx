@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {TaskStructure} from "../TaskStructure";
+import {TaskStructure} from "./Task/TaskStructure";
 import {nanoid} from "nanoid";
 import plus_src from "../img/plus.svg";
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import AppHeader from "./AppHeader/AppHeader";
 import AppInput from "./AppInput";
 import TaskContainer from "./TaskContainer";
-import {TaskStructure} from "../TaskStructure";
+import {TaskStructure} from "./Task/TaskStructure";
 import TaskSort from "./TaskSort";
 
 const App: React.FC = () => {
