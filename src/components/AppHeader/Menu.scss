@@ -1,0 +1,41 @@
+@use './src/index';
+
+#menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 20px;
+	top: 65px;
+	width: 200px;
+	border-radius: 6px;
+	border: 1px solid index.$button-hover-bg;
+	background-color: index.$header-bg;
+	z-index: 100;
+	overflow: hidden;
+	max-height: 800px;
+	padding: 10px 0;
+	transition: all 300ms ease, opacity 0ms;
+	
+	&.collapsed {
+		opacity: 0;
+		padding: 0;
+		max-height: 0;
+		border-color: transparent;
+		pointer-events: none;
+		user-select: none;
+		transition: all 300ms ease, opacity 50ms linear 250ms;
+	}
+	
+	button {
+		width: 90%;
+		height: 40px;
+		
+		&.active {
+			background-color: index.$active-button-bg;
+			outline: none;
+			border: none;
+		}
+	}
+}

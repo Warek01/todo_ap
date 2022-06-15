@@ -1,4 +1,4 @@
-@use "./src/index";
+@use './src/index';
 
 $timing: 250ms;
 
@@ -9,44 +9,44 @@ $timing: 250ms;
 	width: 100%;
 	height: 60px;
 	background-color: index.$header-bg;
-
+	
 	.l-half, .r-half {
 		display: block;
 		width: 50%;
 		height: 100%;
-
+		
 		.logo-wrap {
 			display: flex;
 			align-content: flex-start;
 			align-items: center;
 			width: 100%;
 			height: 100%;
-
+			
 			.logo {
 				display: block;
 				width: 30px;
 				height: 30px;
 				margin: 0 20px;
 			}
-
+			
 			.logo-text {
 				color: #FFFFFF;
 				text-transform: uppercase;
-				font-family: "Raleway", sans-serif;
+				font-family: 'Raleway', sans-serif;
 				font-weight: 300;
 				font-size: 2em;
 				text-wrap: none;
 				cursor: default;
 			}
 		}
-
+		
 		.button-container {
 			display: flex;
 			align-content: center;
 			align-items: center;
 			width: 100%;
 			height: 100%;
-
+			
 			.options-button {
 				padding: 0;
 				background-color: transparent;
@@ -56,11 +56,11 @@ $timing: 250ms;
 				margin-left: auto;
 				margin-right: 20px;
 				transition: background-color .2s ease;
-
+				
 				&:hover {
 					background-color: #FFFFFF0F;
 				}
-
+				
 				img {
 					width: 30px;
 					height: 30px;
@@ -69,45 +69,3 @@ $timing: 250ms;
 		}
 	}
 }
-
-#menu {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	right: 20px;
-	top: 65px;
-	width: 200px;
-	border-radius: 6px;
-	border: 1px solid index.$button-hover-bg;
-	z-index: 100;
-	overflow: hidden;
-	max-height: 800px;
-	padding: 10px 0;
-	transition: all 0ms ease-in-out 0ms,
-	padding $timing ease-in-out 0ms,
-	max-height $timing ease-in-out 0ms,
-	border $timing ease-in-out 0ms;
-
-	&.collapsed {
-		padding: 0;
-		max-height: 0;
-		border-color: transparent;
-		pointer-events: none;
-		user-select: none;
-		z-index: -1;
-	}
-
-	button {
-		width: 90%;
-		height: 40px;
-
-		&.active {
-			background-color: index.$active-button-bg;
-			outline: none;
-			border: none;
-		}
-	}
-}
-

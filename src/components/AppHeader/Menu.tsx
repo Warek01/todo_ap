@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearTasks } from '../../features/TasksSlice';
 import { Filter, setFilter } from '../../features/FiltersSlice';
 import { AppStoreStates } from '../../app/store';
+import './Menu.scss';
 
 interface MenuProps {
 	hidden: boolean;
@@ -36,7 +37,8 @@ const Menu: React.FC<MenuProps> = ({ hidden }) => {
 				Clear all
 			</button>
 			<button
-				onClick={ onFilterChange('all') } className={ classNames({ 'active': filter === 'all' }) }
+				onClick={ onFilterChange('all') }
+				className={ classNames({ 'active': filter === 'all' }) }
 			>
 				Show all
 			</button>
