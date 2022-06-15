@@ -11,6 +11,10 @@
 	transition: max-height 500ms ease 0ms,
 	min-height 500ms ease 0ms;
 
+	&:not(:last-child) {
+		border-bottom: 1px solid index.$button-bg;
+	}
+
 	&.important {
 		//background-color: $task-important-bg;
 	}

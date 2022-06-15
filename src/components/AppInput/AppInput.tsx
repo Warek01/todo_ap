@@ -1,52 +1,52 @@
-import React, {useRef} from "react";
-import {TaskStructure} from "../Task/TaskStructure";
-import {nanoid} from "nanoid";
-import plus_src from "../../img/plus.svg";
-import "./AppInput.scss";
+import React, { useRef, KeyboardEventHandler, FC } from 'react';
+import { nanoid } from 'nanoid';
+import plus_src from '../../img/plus.svg';
+import './AppInput.scss';
+import { addTask } from '../../features/TasksSlice';
+import { useDispatch } from 'react-redux';
 
-interface InputProps {
-	addTask(task: TaskStructure): void;
-}
-
-export default function AppInput(props: InputProps) {
+const AppInput: FC = () => {
 	const input = useRef<HTMLInputElement>(null);
-
-	const onClick = () => {
-		props.addTask({
-			id: `task-${nanoid()}`,
+	const dispatch = useDispatch();
+	
+	const onAddButtonClick = (): void => {
+		dispatch(addTask({
+			id: `task-${ nanoid() }`,
 			text: input.current!.value,
 			done: false,
 			date: Date.now(),
 			important: false
-		});
-
-		input.current!.value = "";
+		}));
+		
+		input.current!.value = '';
 	};
-
-	const onEnter = (event: React.KeyboardEvent) => {
-		if (event.key !== "Enter") return;
-		onClick();
+	
+	const onEnterClick: KeyboardEventHandler<HTMLInputElement>  = event => {
+		if (event.key !== 'Enter') return;
+		onAddButtonClick();
 	};
-
+	
 	return (
-		<div className={"main-input-wrapper"}>
+		<div className={ 'main-input-wrapper' }>
 			<input
-				type={"text"}
-				placeholder={"Add a task"}
-				id={"main-input"}
-				name={"main-input"}
-				ref={input}
-				onKeyUp={onEnter}
+				type={ 'text' }
+				placeholder={ 'Add a task' }
+				id={ 'main-input' }
+				name={ 'main-input' }
+				ref={ input }
+				onKeyUp={ onEnterClick }
 			/>
 			<button
-				id={"add-button"}
-				name={"add-button"}
-				autoCorrect={"false"}
-				aria-autocomplete={"none"}
-				onClick={onClick}
+				id={ 'add-button' }
+				name={ 'add-button' }
+				autoCorrect={ 'false' }
+				aria-autocomplete={ 'none' }
+				onClick={ onAddButtonClick }
 			>
-				<img src={plus_src} alt={"add"}/>
+				<img src={ plus_src } alt={ 'add' }/>
 			</button>
 		</div>
 	);
 }
+
+export default AppInput;

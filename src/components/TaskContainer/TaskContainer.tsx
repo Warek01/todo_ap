@@ -1,36 +1,51 @@
-import React, {Fragment} from "react";
-import {TaskStructure} from "../Task/TaskStructure";
-import Task from "../Task/Task";
-import "./TaskContainer.scss";
+import React from 'react';
+import TaskStructure from '../../TaskStructure';
+import Task from '../Task/Task';
+import './TaskContainer.scss';
+import { useSelector } from 'react-redux';
+import { AppStoreStates } from '../../app/store';
+import { Filter } from '../../features/FiltersSlice';
 
-interface TaskContainerProps {
-	tasks: TaskStructure[];
-	updateTask(task: TaskStructure): void;
-	deleteTask(id: string): void;
-}
-
-const TaskContainer: React.FC<TaskContainerProps> = ({deleteTask, tasks, updateTask}) => {
-	const taskElements: JSX.Element[] = tasks.map((task, index) => {
-		return <Task
-			text={task.text}
-			done={task.done}
-			date={task.date}
-			id={task.id}
-			key={task.id}
-			important={task.important}
-			updateTask={updateTask}
-			deleteTask={deleteTask}
-			hasBorder={index < tasks.length - 1}
-		/>;
+const TaskContainer: React.FC = () => {
+	const tasks: TaskStructure[] = useSelector((state: AppStoreStates) => state.tasks.value);
+	const filter: Filter = useSelector((state: AppStoreStates) => state.filters.value);
+	
+	const arrangedTasks: TaskStructure[] = [];
+	
+	tasks.forEach(task => {
+		if (task.important) arrangedTasks.push(task);
 	});
-
-	const emptyList: JSX.Element = <h1 className={"tasks-empty"}>nothing here</h1>;
-	const tasksContainer: JSX.Element = <div className={"task-container"}>{taskElements}</div>;
-
+	
+	tasks.forEach(task => {
+		if (!task.important) arrangedTasks.push(task);
+	});
+	
+	const taskElements: JSX.Element[] = [];
+	
+	arrangedTasks.forEach(task => {
+		if (filter === 'all' ||
+			(filter === 'important' && task.important) ||
+			(filter === 'complete' && task.done) ||
+			(filter === 'active' && !task.done)
+		)
+			taskElements.push(<Task
+				text={ task.text }
+				done={ task.done }
+				date={ task.date }
+				id={ task.id }
+				key={ task.id }
+				important={ task.important }
+			/>);
+	});
+	
+	
+	const emptyList: JSX.Element = <h1 className={ 'tasks-empty' }>nothing here</h1>;
+	const tasksContainer: JSX.Element = <div className={ 'task-container' }>{ taskElements }</div>;
+	
 	return (
-		<Fragment>
-			{taskElements.length ? tasksContainer : emptyList}
-		</Fragment>
+		<>
+			{ taskElements.length ? tasksContainer : emptyList }
+		</>
 	);
 };
 

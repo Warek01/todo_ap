@@ -1,4 +1,4 @@
-export interface TaskStructure {
+export default interface TaskStructure {
 	id: string;
 	text: string;
 	date: number;
