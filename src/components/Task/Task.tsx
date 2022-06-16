@@ -7,13 +7,13 @@ import star_src from '../../img/star.svg';
 import bin_src from '../../img/bin.svg';
 import pen_src from '../../img/pen.svg';
 import { removeTask, updateTask } from '../../features/TasksSlice';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../app/hooks';
 
 interface TaskProps extends TaskStructure {
 }
 
 const Task: React.FC<TaskProps> = ({ date, done, id, important, text }) => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	
 	const [doneState, setDoneState] = useState<boolean>(done);
 	const [textState, setTextState] = useState<string>(text);

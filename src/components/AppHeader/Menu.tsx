@@ -1,19 +1,18 @@
 import React, { useRef } from 'react';
 import classNames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
 import { clearTasks } from '../../features/TasksSlice';
 import { Filter, setFilter } from '../../features/FiltersSlice';
-import { AppStoreStates } from '../../app/store';
 import './Menu.scss';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface MenuProps {
 	hidden: boolean;
 }
 
 const Menu: React.FC<MenuProps> = ({ hidden }) => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
+	const filter = useAppSelector(state => state.filters.value);
 	const menuRef = useRef<HTMLDivElement>(null);
-	const filter = useSelector((state: AppStoreStates) => state.filters.value);
 	
 	const onClearTasks = () => {
 		dispatch(clearTasks({}));

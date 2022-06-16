@@ -3,11 +3,11 @@ import { nanoid } from 'nanoid';
 import plus_src from '../../img/plus.svg';
 import './AppInput.scss';
 import { addTask } from '../../features/TasksSlice';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../app/hooks';
 
 const AppInput: FC = () => {
 	const input = useRef<HTMLInputElement>(null);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	
 	const onAddButtonClick = (): void => {
 		dispatch(addTask({

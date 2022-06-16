@@ -2,13 +2,12 @@ import React from 'react';
 import TaskStructure from '../../TaskStructure';
 import Task from '../Task/Task';
 import './TaskContainer.scss';
-import { useSelector } from 'react-redux';
-import { AppStoreStates } from '../../app/store';
 import { Filter } from '../../features/FiltersSlice';
+import { useAppSelector } from '../../app/hooks';
 
 const TaskContainer: React.FC = () => {
-	const tasks: TaskStructure[] = useSelector((state: AppStoreStates) => state.tasks.value);
-	const filter: Filter = useSelector((state: AppStoreStates) => state.filters.value);
+	const tasks: TaskStructure[] = useAppSelector(state => state.tasks.value);
+	const filter: Filter = useAppSelector(state => state.filters.value);
 	
 	const arrangedTasks: TaskStructure[] = [];
 	

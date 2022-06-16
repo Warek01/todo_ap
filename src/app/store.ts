@@ -1,16 +1,21 @@
-import {configureStore} from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import tasksSlice from '../features/TasksSlice';
-import filtersSlice, { Filter } from '../features/FiltersSlice';
-import TaskStructure from '../TaskStructure';
+import filtersSlice from '../features/FiltersSlice';
 
-export default configureStore({
+const store = configureStore({
 	reducer: {
 		tasks: tasksSlice,
 		filters: filtersSlice
 	}
 });
 
-export interface AppStoreStates {
-	tasks: { value: TaskStructure[] };
-	filters: { value: Filter };
-}
+// export interface AppStoreStates {
+// 	tasks: { value: TaskStructure[] };
+// 	filters: { value: Filter };
+// }
+
+export default store;
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
